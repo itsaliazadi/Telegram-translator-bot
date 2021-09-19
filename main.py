@@ -84,3 +84,7 @@ def cancel(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="We can do it another time!")
 
     return ConversationHandler.END
+    
+
+# The handlers
+start_handler = CommandHandler("start", start)
