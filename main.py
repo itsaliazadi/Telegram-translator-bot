@@ -52,7 +52,7 @@ def save_text(update, context):
     global translation_text
     # Saving the text
     translation_text += update.message.text
-    
+
     ask_for_lan = "What language do you want to translate it to?"
     supported_languages_giude = """You can also visit https://cloud.google.com/translate/docs/languages to get a list of the 
 supported languages and their abbreviated form."""
@@ -60,5 +60,19 @@ supported languages and their abbreviated form."""
     context.bot.send_message(chat_id=update.effective_chat.id, text=supported_languages_giude)
 
     return LANGUAGE
+
+
+# Sending the user the translation
+def translate(update, context):
+
+    global translation_text
+    global translation_lan
+    # Saving the translation language
+    translate_lan = update.message.text.lower()
+
+    # Translating
+    translation_object = Language()
+    translation = translation_object.translate_text(translation_text, translation_lan)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=translation)
 
 
