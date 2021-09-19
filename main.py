@@ -75,4 +75,12 @@ def translate(update, context):
     translation = translation_object.translate_text(translation_text, translation_lan)
     context.bot.send_message(chat_id=update.effective_chat.id, text=translation)
 
+    return ConversationHandler.END
 
+
+# Cancel function in case the user wanted to break the process
+def cancel(update, context):
+
+    context.bot.send_message(chat_id=update.effective_chat.id, text="We can do it another time!")
+
+    return ConversationHandler.END
