@@ -84,7 +84,17 @@ def cancel(update, context):
     context.bot.send_message(chat_id=update.effective_chat.id, text="We can do it another time!")
 
     return ConversationHandler.END
-    
+
 
 # The handlers
 start_handler = CommandHandler("start", start)
+
+conv_handler_translate = ConversationHandler(
+    entry_points=[CommandHandler("translate", start_translation)],
+    states={
+        TEXT : [MessageHandler(Filters.text & ~Filters.command, save_text)],
+        LANGUAGE : [MessageHandler(Filters.text & ~Filters.command, translate)],
+    },
+    fallbacks=[CommandHandler("cancel", cancel)]
+)
+
