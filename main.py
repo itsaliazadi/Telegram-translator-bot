@@ -98,3 +98,9 @@ conv_handler_translate = ConversationHandler(
     fallbacks=[CommandHandler("cancel", cancel)]
 )
 
+# Adding the handlers to the dispatcher
+DISPATCHER.add_handler(start_handler)
+DISPATCHER.add_handler(conv_handler_translate)
+
+# UPDATER.start_polling()
+
