@@ -14,7 +14,11 @@ TOKEN = "Your token"
 UPDATER = Updater(token=TOKEN)
 DISPATCHER = UPDATER.dispatcher
 
+# User's information
 USERNAME = ""
+
+translation_text = ""
+translation_lan  = ""
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                      level=logging.INFO)
@@ -41,5 +45,20 @@ def start_translation(update, context):
 
     return TEXT
 
+
+# Saving the text and asking for the language
+def save_text(update, context):
+
+    global translation_text
+    # Saving the text
+    translation_text += update.message.text
+    
+    ask_for_lan = "What language do you want to translate it to?"
+    supported_languages_giude = """You can also visit https://cloud.google.com/translate/docs/languages to get a list of the 
+supported languages and their abbreviated form."""
+    context.bot.send_message(chat_id=update.effective_chat.id, text=ask_for_lan)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=supported_languages_giude)
+
+    return LANGUAGE
 
 
