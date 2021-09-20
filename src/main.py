@@ -1,5 +1,5 @@
 import logging
-from languages import Language
+from translation import Language
 from telegram import ReplyKeyboardMarkup
 from telegram.ext import (
     Filters,
@@ -32,7 +32,7 @@ def start(update, context):
 
     welcome_text = """Hi {}!
 Hope you're doing great!
-In order to translate your first text using this bot,Type /translate."""
+In order to translate your first text using this bot,type /translate.""".format(USERNAME)
     context.bot.send_message(chat_id=update.effective_chat.id, text=welcome_text)
 
 
@@ -68,12 +68,12 @@ def translate(update, context):
     global translation_text
     global translation_lan
     # Saving the translation language
-    translate_lan = update.message.text.lower()
+    translation_lan = update.message.text.lower()
 
     # Translating
     translation_object = Language()
-    translation = translation_object.translate_text(translation_text, translation_lan)
-    context.bot.send_message(chat_id=update.effective_chat.id, text=translation)
+    translation_message = translation_object.translate_text(translation_text, translation_lan)
+    context.bot.send_message(chat_id=update.effective_chat.id, text=translation_message)
 
     return ConversationHandler.END
 
@@ -102,5 +102,5 @@ conv_handler_translate = ConversationHandler(
 DISPATCHER.add_handler(start_handler)
 DISPATCHER.add_handler(conv_handler_translate)
 
-# UPDATER.start_polling()
+UPDATER.start_polling()
 
